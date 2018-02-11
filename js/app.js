@@ -1,5 +1,22 @@
 let cards = document.querySelector('#container');
-let icons = ["..img/computer-monitor.png", 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+let icons = [
+  "img/computer-monitor.png",
+  "img/computer-monitor.png",
+  "img/location-pin.png",
+  "img/location-pin.png",
+  "img/play-button.png",
+  "img/play-button.png",
+  "img/shopping-bag.png",
+  "img/shopping-bag.png",
+  "img/camera.png",
+  "img/camera.png",
+  "img/phone.png",
+  "img/phone.png",
+  "img/cloud.png",
+  "img/cloud.png",
+  "img/messages.png",
+  "img/messages.png"
+];
 
 // Using the Fisher-Yates shuffle algorithm to shuffle items in icons array
 function shuffle(arr) {
@@ -25,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
   shuffle(icons);
   for (let i = 0; i < 16; i++) {
     let memoryCard = document.createElement('div');
-    memoryCard.innerText = icons[i];
+    memoryCard.innerHTML = `<img src=${icons[i]} width="35px">`;
     cards.appendChild(memoryCard);
   }
 });
