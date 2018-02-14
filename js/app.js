@@ -72,7 +72,7 @@ let clicks = [];
 selectedIcon.addEventListener('click', function(e) {
   clicks.push(e.target);
   while (clicks.length >= 2) {
-  if(clicks[0].src != clicks[1].src) {
+  if(clicks[0].innerHTML != clicks[1].innerHTML) {
     console.log("Wrong answer");
   } else {
     console.log("Correct answer!");
