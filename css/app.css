@@ -1,16 +1,25 @@
+body {
+  background: linear-gradient(to bottom right, #3D505D ,#5A768A);
+}
+
 #container {
   padding:20px;
 }
 
 #container > div {
-  border-style: solid;
-  border-width: 2px;
-  background-color: white;
+  background-color: #FBD8B0;
   height: 2em;
   width: 2em;
   padding: 50px;
   margin: 80px;
   float: left;
   border-radius: 10%;
+  text-align:center;
+  -webkit-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.15);
+  -moz-box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.15);
+  box-shadow: 10px 10px 24px 3px rgba(0,0,0,0.15);
+}
+
+img {
   text-align:center;
 }
