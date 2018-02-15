@@ -1,5 +1,8 @@
 let cards = document.querySelector('#container');
 let selectedIcon = document.querySelector('div');
+let memoryCard = document.createElement('div');
+
+
 let originalIcons = [
   {id: 1, img: "img/computer-monitor.png"},
   {id: 2, img: "img/location-pin.png"},
@@ -10,25 +13,6 @@ let originalIcons = [
   {id: 7, img: "img/cloud.png"},
   {id: 8, img: "img/messages.png"}
 ];
-
-/*let icons = [
-  "img/computer-monitor.png",
-  "img/computer-monitor.png",
-  "img/location-pin.png",
-  "img/location-pin.png",
-  "img/play-button.png",
-  "img/play-button.png",
-  "img/shopping-bag.png",
-  "img/shopping-bag.png",
-  "img/camera.png",
-  "img/camera.png",
-  "img/phone.png",
-  "img/phone.png",
-  "img/cloud.png",
-  "img/cloud.png",
-  "img/messages.png",
-  "img/messages.png"
-];*/
 
 // Map through originalIcons array twice and then concat the arrays into one
 let firstIco = originalIcons.map(icon => icon.img);
@@ -61,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
   shuffle(icons);
   for (let i = 0; i < 16; i++) {
     let memoryCard = document.createElement('div');
-    memoryCard.innerHTML = `<img src=${icons[i]} width="35px">`;
+    memoryCard.innerHTML = `<img class="hidden" src=${icons[i]} width="35px">`;
     cards.appendChild(memoryCard);
   }
 });
@@ -70,13 +54,21 @@ document.addEventListener("DOMContentLoaded", function() {
 // then clear the array after two clicks
 let clicks = [];
 selectedIcon.addEventListener('click', function(e) {
+  console.log(e);
   clicks.push(e.target);
+  e.target.firstElementChild.classList.toggle('hidden');
+  setTimeout(function() {
   while (clicks.length >= 2) {
   if(clicks[0].innerHTML != clicks[1].innerHTML) {
     console.log("Wrong answer");
+    //If items don't match, then re-toggle the 'hidden' class to
+    // hide the items again
+    clicks[0].firstElementChild.classList.toggle('hidden');
+    clicks[1].firstElementChild.classList.toggle('hidden');
   } else {
     console.log("Correct answer!");
   }
   clicks.splice(0, 2);
 }
+}, 1000)
 })
