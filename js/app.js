@@ -1,6 +1,5 @@
 let cards = document.querySelector('#container');
 let selectedIcon = document.querySelector('div');
-let memoryCard = document.createElement('div');
 
 
 let originalIcons = [
@@ -37,21 +36,21 @@ function shuffle(arr) {
 
   return arr;
 }
+
 // When the DOM loads cycle through the random array and display
 // the random indexes in created div elements
 document.addEventListener("DOMContentLoaded", function() {
-  // future comment - the icons array should be two array concatenated
-  // into one and THEN shuffle
   shuffle(icons);
   for (let i = 0; i < 16; i++) {
     let memoryCard = document.createElement('div');
+    memoryCard.className="cards";
     memoryCard.innerHTML = `<img class="hidden" src=${icons[i]} width="35px">`;
     cards.appendChild(memoryCard);
   }
 });
 
 // Takes in the item clicked and saves it in an array
-// then clear the array after two clicks
+// then clears the array after two clicks
 let clicks = [];
 selectedIcon.addEventListener('click', function(e) {
   console.log(e);
