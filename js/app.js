@@ -51,7 +51,7 @@ function shuffle(arr) {
 let time = 0;
 
 function timer() {
-  if(icons) {
+  if(totalClicks.length > 0) {
     time += 1;
   }
   playerTime.innerHTML=`<p>Time: ${time}</p>`;
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
   playerPerformance.innerHTML=`<p><img src="img/perfect-score.png"></p>`;
   restart.innerHTML=`<img src="img/refresh.png">`;
   // The timer function above is added to a <p> element
-  timer();
+  playerTime.innerHTML=`<p>Time: 0</p>`;
 });
 
 // Takes in the item clicked and saves it in an array
@@ -109,6 +109,7 @@ selectedIcon.addEventListener('click', function(e) {
     count += 1;
   }
   clicks.splice(0, 2);
+
 
 // When the correctAnswers array = 8 then the 'winner' modal appears
   if (correctAnswers.length === 8) {
