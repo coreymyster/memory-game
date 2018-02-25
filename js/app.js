@@ -90,26 +90,24 @@ let correctAnswers = [];
 // Stores total number of clicks in an array
 let totalClicks = [];
 selectedIcon.addEventListener('click', function(e) {
-  console.log(e);
   clicks.push(e.target);
-  totalClicks.push(e.target);
+  if (clicks[0] && clicks[1]) {
+    totalClicks.push(e.target);
+  }
   e.target.firstElementChild.classList.toggle('hidden');
   moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
   setTimeout(function() {
   while (clicks.length >= 2) {
   if(clicks[0].innerHTML != clicks[1].innerHTML) {
-    console.log("Wrong answer");
     //If items don't match, then re-toggle the 'hidden' class to
     // hide the items again
     clicks[0].firstElementChild.classList.toggle('hidden');
     clicks[1].firstElementChild.classList.toggle('hidden');
   } else {
-    console.log("Correct answer!");
     correctAnswers.push(e.target);
     count += 1;
   }
   clicks.splice(0, 2);
-
 
 // When the correctAnswers array = 8 then the 'winner' modal appears
   if (correctAnswers.length === 8) {
