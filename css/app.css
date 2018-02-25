@@ -1,4 +1,3 @@
-@media only screen and (min-width: 375px) {
   body {
     background: linear-gradient(to bottom right, #14B6D4 ,#14D1AB);
     font-family: 'Mukta Mahee', sans-serif;
@@ -7,8 +6,8 @@
 
   header {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(1 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2 1fr);
     grid-gap: 1em;
     color: #eeeeee;
     text-align: center;
@@ -16,7 +15,7 @@
 
   h1 {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 3;
     text-align: center;
   }
 
@@ -90,7 +89,12 @@
     font-size: 18px;
     cursor: pointer;
   }
-}
+
+  .restart {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
 
 @media only screen and (min-width: 545px) {
   #container {
@@ -103,6 +107,24 @@
 
   .cards {
     margin-left: 5%;
+  }
+
+  header {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  h1 {
+    grid-column-start: 2;
+    grid-column-end: 5;
+  }
+
+  .timer {
+    grid-column-start: 1;
+  }
+
+  .restart {
+    grid-column-start: 5;
+    grid-column-end: 6;
   }
 }
 
