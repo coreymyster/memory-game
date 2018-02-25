@@ -6,8 +6,11 @@ let restart = document.querySelector('.restart');
 let modal = document.querySelector('section');
 let innerModal = document.querySelector('.modal');
 let playAgain = document.querySelector('.playAgain');
+let playerTime = document.querySelector('.timer');
+let moves = document.querySelector('.moves');
 let count = 0;
 
+// Array of icons for the cards
 let originalIcons = [
   {id: 1, img: "img/computer-monitor.png"},
   {id: 2, img: "img/location-pin.png"},
@@ -43,8 +46,26 @@ function shuffle(arr) {
   return arr;
 }
 
+// The game timer checks to see if the icons array exists.
+// If so, then the timer begins to execute.
+let time = 0;
+
+function timer() {
+  if(icons) {
+    time += 1;
+  }
+  playerTime.innerHTML=`<p>Time: ${time}</p>`;
+}
+let timerInterval = setInterval(timer, 1000)
+
+// A function to stop the setInterval of the game timer
+function stopTimer() {
+  clearInterval(timerInterval)
+}
+
 // When the DOM loads cycle through the random array and display
-// the random indexes in created div elements
+// the random indexes in created div elements. Also display
+// game information in <p> elements at the top.
 document.addEventListener("DOMContentLoaded", function() {
   shuffle(icons);
   for (let i = 0; i < 16; i++) {
@@ -54,20 +75,26 @@ document.addEventListener("DOMContentLoaded", function() {
     cards.appendChild(memoryCard);
   }
   counter.innerHTML=`<p>Correct Answers: ${count}</p>`;
+  moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
   playerPerformance.innerHTML=`<p><img src="img/perfect-score.png"></p>`;
   restart.innerHTML=`<img src="img/refresh.png">`;
+  // The timer function above is added to a <p> element
+  timer();
 });
 
 // Takes in the item clicked and saves it in an array
 // then clears the array after two clicks
 let clicks = [];
+// If cards match then store them in an array
 let correctAnswers = [];
+// Stores total number of clicks in an array
 let totalClicks = [];
 selectedIcon.addEventListener('click', function(e) {
   console.log(e);
   clicks.push(e.target);
   totalClicks.push(e.target);
   e.target.firstElementChild.classList.toggle('hidden');
+  moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
   setTimeout(function() {
   while (clicks.length >= 2) {
   if(clicks[0].innerHTML != clicks[1].innerHTML) {
@@ -83,12 +110,14 @@ selectedIcon.addEventListener('click', function(e) {
   }
   clicks.splice(0, 2);
 
-
+// When the correctAnswers array = 8 then the 'winner' modal appears
   if (correctAnswers.length === 8) {
+    stopTimer();
     modal.style.visibility="visible";
     innerModal.innerHTML=`<h2>Congratulations, you win!</h2>
       <p>You correctly guessed all ${correctAnswers.length} matches</p>
       <p>You finished with a score of ${playerPerformance.innerHTML}</p>
+      <p>It took you ${time} seconds to correctly guess all combinations</p>
       <inpiut type="button" class="playAgain" onClick="window.location.reload()">Play again</input>`;
   }
   // Updates the counter for every matched selection
