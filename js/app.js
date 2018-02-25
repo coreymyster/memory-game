@@ -124,11 +124,9 @@ selectedIcon.addEventListener('click', function(e) {
   counter.innerHTML=`<p>Correct Answers: ${count}</p>`
 
 // Star rating moves down dpeending on number of clicks
-  if (totalClicks.length > 43) {
-    playerPerformance.innerHTML=`<p><img src="img/no-score.png"></p>`;
-  } else if (totalClicks.length >= 32 && totalClicks.length <= 43) {
+  if (totalClicks.length > 37) {
     playerPerformance.innerHTML=`<p><img src="img/low-score.png"></p>`;
-  } else if (totalClicks.length >= 25 && totalClicks.length < 32) {
+  } else if (totalClicks.length >= 25 && totalClicks.length < 37) {
     playerPerformance.innerHTML=`<p><img src="img/medium-score.png"></p>`;
   } else {
     playerPerformance.innerHTML=`<p><img src="img/perfect-score.png"></p>`;
