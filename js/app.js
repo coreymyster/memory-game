@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let memoryCard = document.createElement('div');
     memoryCard.className="cards";
     memoryCard.innerHTML = `<img class="hidden" src=${icons[i]} width="30px">`;
+    memoryCard.id=i;
     cards.appendChild(memoryCard);
   }
   counter.innerHTML=`<p>Correct Answers: ${count}</p>`;
@@ -90,19 +91,35 @@ let correctAnswers = [];
 // Stores total number of clicks in an array
 let totalClicks = [];
 selectedIcon.addEventListener('click', function(e) {
-  clicks.push(e.target);
-  if (clicks[0] && clicks[1]) {
+  console.log(e);
+  clicks.push(e);
+  if (clicks[0]) {
     totalClicks.push(e.target);
   }
+
   e.target.firstElementChild.classList.toggle('hidden');
+  /*if(e.target.firstElementChild) {
+    e.target.firstElementChild.classList.toggle('hidden');
+  }*/
+
   moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
+
   setTimeout(function() {
   while (clicks.length >= 2) {
-  if(clicks[0].innerHTML != clicks[1].innerHTML) {
+    // For later to avoid duplicate clicks
+
+  if(clicks[0].target.id === clicks[1].target.parentElement.id) {
+      console.log('Detected duplicate');
+      totalClicks.splice(0, 1);
+      //clicks[0].target.firstElementChild.classList.toggle('hidden');
+      clicks[1].target.classList.toggle('hidden');
+  } else if(clicks[0].target.innerHTML != clicks[1].target.innerHTML) {
     //If items don't match, then re-toggle the 'hidden' class to
     // hide the items again
-    clicks[0].firstElementChild.classList.toggle('hidden');
-    clicks[1].firstElementChild.classList.toggle('hidden');
+    clicks[0].target.firstElementChild.classList.toggle('hidden');
+    clicks[1].target.firstElementChild.classList.toggle('hidden');
+  } else if(clicks[0].target.id === clicks[1].target.id) {
+    console.log('Duplicate ids');
   } else {
     correctAnswers.push(e.target);
     count += 1;
