@@ -98,16 +98,17 @@ selectedIcon.addEventListener('click', function(e) {
   }
 
   e.target.firstElementChild.classList.toggle('hidden');
-  /*if(e.target.firstElementChild) {
-    e.target.firstElementChild.classList.toggle('hidden');
-  }*/
 
   moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
 
   setTimeout(function() {
   while (clicks.length >= 2) {
-    // For later to avoid duplicate clicks
 
+  //The following if statement checks
+  // 1) If the same image is clicked
+  // 2) If two cards clicked don't match then reset the cards
+  // 3) If the same card <div> is clicked
+  // If none of the above the answer is correct
   if(clicks[0].target.id === clicks[1].target.parentElement.id) {
       console.log('Detected duplicate');
       totalClicks.splice(0, 1);
