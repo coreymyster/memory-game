@@ -9,6 +9,7 @@ let playAgain = document.querySelector('.playAgain');
 let playerTime = document.querySelector('.timer');
 let moves = document.querySelector('.moves');
 let count = 0;
+let totalClicks = 0;
 
 // Array of icons for the cards
 let originalIcons = [
@@ -46,12 +47,12 @@ function shuffle(arr) {
   return arr;
 }
 
-// The game timer checks to see if the icons array exists.
+// The game timer checks to see if there are any clicks yet.
 // If so, then the timer begins to execute.
 let time = 0;
 
 function timer() {
-  if(totalClicks.length > 0) {
+  if(totalClicks > 0) {
     time += 1;
   }
   playerTime.innerHTML=`<p>Time: ${time}</p>`;
@@ -71,12 +72,12 @@ document.addEventListener("DOMContentLoaded", function() {
   for (let i = 0; i < 16; i++) {
     let memoryCard = document.createElement('div');
     memoryCard.className="cards";
-    memoryCard.innerHTML = `<img class="hidden" src=${icons[i]} width="30px">`;
+    memoryCard.innerHTML = `<img class="hidden noClick" src=${icons[i]} width="30px">`;
     memoryCard.id=i;
     cards.appendChild(memoryCard);
   }
   counter.innerHTML=`<p>Correct Answers: ${count}</p>`;
-  moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
+  moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
   playerPerformance.innerHTML=`<p><img src="img/perfect-score.png"></p>`;
   restart.innerHTML=`<img src="img/refresh.png">`;
   // The timer function above is added to a <p> element
@@ -88,42 +89,39 @@ document.addEventListener("DOMContentLoaded", function() {
 let clicks = [];
 // If cards match then store them in an array
 let correctAnswers = [];
-// Stores total number of clicks in an array
-let totalClicks = [];
 selectedIcon.addEventListener('click', function(e) {
   console.log(e);
   clicks.push(e);
-  if (clicks[0]) {
-    totalClicks.push(e.target);
-  }
 
   e.target.firstElementChild.classList.toggle('hidden');
 
-  moves.innerHTML = `<p>Number of moves: ${totalClicks.length}</p>`
+  moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
 
   setTimeout(function() {
-  while (clicks.length >= 2) {
+  while (clicks.length > 1) {
 
-  //The following if statement checks
-  // 1) If the same image is clicked
-  // 2) If two cards clicked don't match then reset the cards
-  // 3) If the same card <div> is clicked
+  //The following if statement checks:
+  // 1) If two cards clicked don't match then reset the cards
+  // 2) If the same card <div> is clicked
   // If none of the above the answer is correct
-  if(clicks[0].target.id === clicks[1].target.parentElement.id) {
-      console.log('Detected duplicate');
-      totalClicks.splice(0, 1);
-      //clicks[0].target.firstElementChild.classList.toggle('hidden');
-      clicks[1].target.classList.toggle('hidden');
-  } else if(clicks[0].target.innerHTML != clicks[1].target.innerHTML) {
+  if(clicks[0].target.innerHTML != clicks[1].target.innerHTML) {
     //If items don't match, then re-toggle the 'hidden' class to
-    // hide the items again
+    // hide the items again and add the clicks to the number of moves.
     clicks[0].target.firstElementChild.classList.toggle('hidden');
     clicks[1].target.firstElementChild.classList.toggle('hidden');
+    totalClicks += 1;
+    moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
   } else if(clicks[0].target.id === clicks[1].target.id) {
+    // If two of the same cards are clicked then no moves are counted
     console.log('Duplicate ids');
+    totalClicks - 1;
+    moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
+
   } else {
     correctAnswers.push(e.target);
+    totalClicks += 1;
     count += 1;
+    moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
   }
   clicks.splice(0, 2);
 
@@ -141,9 +139,9 @@ selectedIcon.addEventListener('click', function(e) {
   counter.innerHTML=`<p>Correct Answers: ${count}</p>`
 
 // Star rating moves down dpeending on number of clicks
-  if (totalClicks.length > 37) {
+  if (totalClicks > 25) {
     playerPerformance.innerHTML=`<p><img src="img/low-score.png"></p>`;
-  } else if (totalClicks.length >= 25 && totalClicks.length < 37) {
+  } else if (totalClicks >= 16 && totalClicks < 25) {
     playerPerformance.innerHTML=`<p><img src="img/medium-score.png"></p>`;
   } else {
     playerPerformance.innerHTML=`<p><img src="img/perfect-score.png"></p>`;
