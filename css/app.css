@@ -61,6 +61,10 @@
     visibility: hidden;
   }
 
+  .noClick {
+    pointer-events: none;
+  }
+
   section {
     position: fixed;;
     background-color: #F26101;
