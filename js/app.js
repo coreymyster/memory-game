@@ -131,7 +131,7 @@ selectedIcon.addEventListener('click', function(e) {
     modal.style.visibility="visible";
     innerModal.innerHTML=`<h2>Congratulations, you win!</h2>
       <p>You correctly guessed all ${correctAnswers.length} matches</p>
-      <p>You finished with a score of ${playerPerformance.innerHTML}</p>
+      <p>You made ${totalClicks} moves and finished with a score of ${playerPerformance.innerHTML}</p>
       <p>It took you ${time} seconds to correctly guess all combinations</p>
       <inpiut type="button" class="playAgain" onClick="window.location.reload()">Play again</input>`;
   }
