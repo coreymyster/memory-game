@@ -89,11 +89,19 @@ document.addEventListener("DOMContentLoaded", function() {
 let clicks = [];
 // If cards match then store them in an array
 let correctAnswers = [];
+let alreadySelected = correctAnswers.map(selected => selected.id);
+
 selectedIcon.addEventListener('click', function(e) {
   console.log(e);
-  clicks.push(e);
+  // Check if container is clicked. If so, do nothing, if not then add
+  // child card elements to clicks array
+  if (e.target.id === "container") {
+    console.log('Container clicked');
+  } else {
+    clicks.push(e);
+    e.target.firstElementChild.classList.toggle('hidden');
+  }
 
-  e.target.firstElementChild.classList.toggle('hidden');
 
   moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
 
@@ -119,6 +127,8 @@ selectedIcon.addEventListener('click', function(e) {
 
   } else {
     correctAnswers.push(e.target);
+    clicks[0].srcElement.classList.toggle('noClick');
+    clicks[1].srcElement.classList.toggle('noClick');
     totalClicks += 1;
     count += 1;
     moves.innerHTML = `<p>Number of moves: ${totalClicks}</p>`
